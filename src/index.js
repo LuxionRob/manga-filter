@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import App from './App'
+import './assets/styles/reset.css'
+import 'antd/dist/antd.min.css'
 import './index.css'
 import './assets/styles/tailwindOutput.css'
-import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

@@ -1,0 +1,9 @@
+.ant-layout-content {
+  background-color: #242526;
+}
+
+.ant-layout-header,
+.ant-layout-footer,
+.ant-layout-sider {
+  background-color: #000;
+}

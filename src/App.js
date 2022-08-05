@@ -1,8 +1,11 @@
+import Index from './assets/layouts/defaultLayout'
 import './App.css'
 
 function App () {
   return (
-    <div className="container flex"> Hello </div>
+    <Index>
+      <div className="container flex"> Hello</div>
+    </Index>
   )
 }
 

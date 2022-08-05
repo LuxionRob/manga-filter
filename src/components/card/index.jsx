@@ -1,19 +1,37 @@
-const Card = () => {
+import PropTypes from 'prop-types'
+import { Typography, Tooltip } from 'antd'
 
+const  { Paragraph } = Typography
+
+const Card = ({ item, className }) => {
+  console.log(item)
   return (
-    <a href='/' className="block relative w-[210px] mb-12">
-      <div className="absolute px-2 py-1 top-1 left-1 text-white bg-blue-400 rounded-xl">2 giờ trước</div>
+    <a href='/' className={`block relative w-[210px] mb-12 ${className}`}>
+      <div className="absolute px-2 py-1 top-1 left-1 text-white bg-blue-400 rounded-xl">{item.status}</div>
       <img
-        className="w-full"
-        src="https://cdn.myanimelist.net/images/manga/1/157897l.jpg"
+        className="object-center"
+        src={item.images.jpg.large_image_url}
+        width={210}
+        height={300}
         alt="example"
       />
       <div className="mt-1 flex flex-col justify-content-between items-center">
-        <span className="text-white italic text-lg">Blabla</span>
-        <span className="text-white ml-2 text-gray-500">110 chap</span>
+        <Paragraph
+          ellipsis={{
+            rows: 2
+          }}
+          className="text-white italic text-sm w-full text-center"
+        >
+          <Tooltip title={item.title}>{item.title}</Tooltip>
+        </Paragraph>
+        <span className="text-white ml-2 text-gray-500">{item.chapters < 1 || null ? 0 : item.chapters} chap</span>
       </div>
     </a>
   )
+}
+
+Card.propTypes = {
+  item: PropTypes.object.isRequired
 }
 
 export default Card

@@ -5,6 +5,7 @@ module.exports = {
     "./src/components/*/*.jsx",
     "./src/pages/**/*.jsx",
     "./src/assets/layouts/**/*.jsx",
+    './src/*.{jsx, js}',
     "./public/index.html",
   ],
   theme: {

@@ -4,7 +4,7 @@ import Navbar from '../../../components/navbar'
 // import Card from '../../../components/card'
 import './style.css'
 
-const { Header, Content, Sider } = Layout
+const { Header, Content } = Layout
 
 const DefaultLayout = ({ children }) => {
 
@@ -17,12 +17,6 @@ const DefaultLayout = ({ children }) => {
         <Content className="h-full">
           {children}
         </Content>
-        <Sider
-          className="flex justify-center"
-          width={500}
-        >
-          <div>Genre</div>
-        </Sider>
       </Layout>
     </Layout>
   )

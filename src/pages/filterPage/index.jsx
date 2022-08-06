@@ -7,12 +7,6 @@ import Card from '../../components/card'
 const { Option } = Select
 const { Group, Button } = Radio
 const statusList = ['publishing', 'complete', 'hiatus', 'discontinued', 'upcoming']
-const filterProperty = {
-  Update: 'start_date',
-  Rank: 'rank',
-  Chapters: 'chapters',
-  Favorites: 'favorites',
-}
 
 const FilterPage = () => {
   const [mangaList, setMangaList] = useState([])
@@ -22,30 +16,7 @@ const FilterPage = () => {
   const [excludeGenre, setExcludeGenre] = useState([])
   const [status, setStatus] = useState('')
   const [orderBy, setOrderBy] = useState('')
-  const [sort, setSort] = useState('desc')
-
-  const fetchMangaList = async () => {
-    try {
-      setIsLoading(true)
-      const includeGenreParam = filterGenre.join(',')
-      const excludeGenreParam = excludeGenre.join(',')
-      const res = await searchManga(
-        'naruto',
-        24,
-        status,
-        includeGenreParam,
-        excludeGenreParam,
-        orderBy,
-        sort,
-      )
-      setMangaList(res.data.data)
-      setIsLoading(false)
-      return Promise.resolve()
-    } catch {
-      setIsLoading(false)
-      return Promise.reject(new Error('Failed to search manga'))
-    }
-  }
+  const [sort, setSort] = useState('')
 
   const fetchGenres = async () => {
     try {
@@ -69,6 +40,7 @@ const FilterPage = () => {
       return Promise.reject(new Error('Fail'))
     }
   }
+
   useEffect(() => {
     fetchManga().then()
     fetchGenres().then()
@@ -110,6 +82,27 @@ const FilterPage = () => {
   const onSortChange = (e) => {
     setSort(e.target.value)
   }
+  const fetchMangaList = async (q) => {
+    try {
+      setIsLoading(true)
+      const includeGenreParam = filterGenre.join(',')
+      const excludeGenreParam = excludeGenre.join(',')
+
+      const res = await searchManga(q, status, includeGenreParam, excludeGenreParam, orderBy, sort)
+      setMangaList(res.data.data)
+      setIsLoading(false)
+      return Promise.resolve()
+    } catch {
+      setIsLoading(false)
+      return Promise.reject(new Error('Failed to search manga'))
+    }
+  }
+  const onSearch = () => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const name = searchParams.get('q')
+    fetchMangaList(name)
+  }
+
   return (
     <DefaultLayout>
       <div className="flex flex-col pt-16 mx-64 bg-gray-700 nowrap">
@@ -157,7 +150,7 @@ const FilterPage = () => {
               showArrow
               maxTagCount={1}
               loading={isLoading}
-              className="w-48 rounded"
+              className="w-48 capitalize"
               onChange={onStatusChange}
             >
               {statusList.map((status, key) => (
@@ -167,7 +160,7 @@ const FilterPage = () => {
               ))}
             </Select>
           </div>
-          <div className="relative flex justify-center w-full mb-32">
+          <div className="relative flex justify-center w-full mb-8">
             <span className="absolute top-0 bottom-0 text-2xl text-white left-16">Order by:</span>
             <Space direction="horizontal">
               <Group optionType="button" buttonStyle="solid" onChange={onPropertyChange}>
@@ -183,7 +176,9 @@ const FilterPage = () => {
               </Group>
             </Space>
           </div>
-          <button onClick={fetchMangaList}>Search</button>
+          <button className="mb-32" onClick={onSearch}>
+            Search
+          </button>
         </div>
         <div className="flex flex-wrap basis-2/3 justify-evenly">
           {mangaList.map((manga) => (

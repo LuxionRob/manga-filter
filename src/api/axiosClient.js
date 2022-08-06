@@ -20,28 +20,31 @@ export const getMangaFullById = async (path, options = {}) => {
 
 export const getManga = async () => {
   try {
-    const res = await instance.get('manga')
+    const res = await instance.get('manga', {
+      params: {
+        limit: 24,
+      },
+    })
     return res
   } catch (error) {
     return Promise.reject(new Error('Get invalid'))
   }
 }
 
-export const searchManga = async (
-  q,
-  limit = 24,
-  status,
-  genres,
-  genres_exclude,
-  order_by,
-  sort,
-) => {
+export const searchManga = async (q, status, genres, genres_exclude, order_by, sort) => {
   try {
-    console.log(q, limit, status, genres, genres_exclude, order_by, sort)
-    if (!q) return Promise.resolve()
-    const res = await instance.get(
-      `manga?q=${q}&limit=${limit}&status=${status}&genres=${genres}&genres_exclude=${genres_exclude}&order_by=${order_by}&sort=${sort}`,
-    )
+    const res = await instance.get('manga', {
+      params: {
+        limit: 24,
+        q,
+        status,
+        genres,
+        genres_exclude,
+        order_by,
+        sort,
+        sfw: true,
+      },
+    })
     return res
   } catch (error) {
     return Promise.reject(new Error('Search input invalid'))

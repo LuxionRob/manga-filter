@@ -1,6 +1,6 @@
 import DefaultLayout from '../../assets/layouts/defaultLayout'
 import React, { useEffect, useState } from 'react'
-import { searchManga, getMangaGenres } from '../../api/axiosClient'
+import { searchManga, getMangaGenres, getManga } from '../../api/axiosClient'
 import { Select, Tag, Radio, Space } from 'antd'
 import Card from '../../components/card'
 
@@ -18,16 +18,26 @@ const FilterPage = () => {
   const [mangaList, setMangaList] = useState([])
   const [genres, setGenres] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [fileterGenre, setFilterGenre] = useState([])
+  const [filterGenre, setFilterGenre] = useState([])
   const [excludeGenre, setExcludeGenre] = useState([])
   const [status, setStatus] = useState('')
-  const [currentFilterProperty, setCurrentFilterProperty] = useState('')
-  const [orderBy, setOrderBy] = useState('desc')
+  const [orderBy, setOrderBy] = useState('')
+  const [sort, setSort] = useState('desc')
 
   const fetchMangaList = async () => {
     try {
       setIsLoading(true)
-      const res = await searchManga('naruto')
+      const includeGenreParam = filterGenre.join(',')
+      const excludeGenreParam = excludeGenre.join(',')
+      const res = await searchManga(
+        'naruto',
+        24,
+        status,
+        includeGenreParam,
+        excludeGenreParam,
+        orderBy,
+        sort,
+      )
       setMangaList(res.data.data)
       setIsLoading(false)
       return Promise.resolve()
@@ -50,8 +60,17 @@ const FilterPage = () => {
     }
   }
 
+  const fetchManga = async () => {
+    try {
+      const res = await getManga()
+      setMangaList(res.data.data)
+      return res
+    } catch (error) {
+      return Promise.reject(new Error('Fail'))
+    }
+  }
   useEffect(() => {
-    fetchMangaList().then()
+    fetchManga().then()
     fetchGenres().then()
   }, [])
 
@@ -86,10 +105,10 @@ const FilterPage = () => {
     setStatus(e)
   }
   const onPropertyChange = (e) => {
-    setCurrentFilterProperty(e.target.value)
+    setOrderBy(e.target.value)
   }
   const onSortChange = (e) => {
-    setOrderBy(e.target.value)
+    setSort(e.target.value)
   }
   return (
     <DefaultLayout>
@@ -135,10 +154,8 @@ const FilterPage = () => {
           <div className="mb-8">
             <Select
               placeholder="Status"
-              mode="multiple"
               showArrow
               maxTagCount={1}
-              tagRender={tagRender}
               loading={isLoading}
               className="w-48 rounded"
               onChange={onStatusChange}
@@ -154,10 +171,10 @@ const FilterPage = () => {
             <span className="absolute top-0 bottom-0 text-2xl text-white left-16">Order by:</span>
             <Space direction="horizontal">
               <Group optionType="button" buttonStyle="solid" onChange={onPropertyChange}>
-                <Button value="Rank">Rank</Button>
-                <Button value="Update">Update</Button>
-                <Button value="Chapters">Chapters</Button>
-                <Button value="Favorites">Favorites</Button>
+                <Button value="rank">Rank</Button>
+                <Button value="start_date">Update</Button>
+                <Button value="chapters">Chapters</Button>
+                <Button value="favorites">Favorites</Button>
               </Group>
 
               <Group optionType="button" buttonStyle="solid" onChange={onSortChange}>
@@ -166,6 +183,7 @@ const FilterPage = () => {
               </Group>
             </Space>
           </div>
+          <button onClick={fetchMangaList}>Search</button>
         </div>
         <div className="flex flex-wrap basis-2/3 justify-evenly">
           {mangaList.map((manga) => (

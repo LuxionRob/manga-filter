@@ -33,18 +33,16 @@ const FilterPage = () => {
 
   const fetchManga = async () => {
     try {
+      setIsLoading(true)
       const res = await getManga()
       setMangaList(res.data.data)
+      setIsLoading(false)
       return res
     } catch (error) {
+      setIsLoading(false)
       return Promise.reject(new Error('Fail'))
     }
   }
-
-  useEffect(() => {
-    fetchManga().then()
-    fetchGenres().then()
-  }, [])
 
   const tagRender = ({ label, value, closable, onClose }) => {
     const onPreventMouseDown = (event) => {
@@ -73,22 +71,35 @@ const FilterPage = () => {
     const genreKey = genres.map((genre) => Number(genre.key))
     setExcludeGenre(genreKey)
   }
+
   const onStatusChange = (e) => {
     setStatus(e)
   }
+
   const onPropertyChange = (e) => {
     setOrderBy(e.target.value)
   }
+
   const onSortChange = (e) => {
     setSort(e.target.value)
   }
+
   const fetchMangaList = async (q) => {
     try {
       setIsLoading(true)
       const includeGenreParam = filterGenre.join(',')
       const excludeGenreParam = excludeGenre.join(',')
+      const searchParams = new URLSearchParams(window.location.search)
+      const name = searchParams.get('q')
 
-      const res = await searchManga(q, status, includeGenreParam, excludeGenreParam, orderBy, sort)
+      const res = await searchManga(
+        name,
+        status,
+        includeGenreParam,
+        excludeGenreParam,
+        orderBy,
+        sort,
+      )
       setMangaList(res.data.data)
       setIsLoading(false)
       return Promise.resolve()
@@ -97,11 +108,15 @@ const FilterPage = () => {
       return Promise.reject(new Error('Failed to search manga'))
     }
   }
+
   const onSearch = () => {
-    const searchParams = new URLSearchParams(window.location.search)
-    const name = searchParams.get('q')
-    fetchMangaList(name)
+    fetchMangaList()
   }
+
+  useEffect(() => {
+    fetchManga().then()
+    fetchGenres().then()
+  }, [])
 
   return (
     <DefaultLayout>

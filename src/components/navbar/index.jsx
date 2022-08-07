@@ -1,5 +1,5 @@
-import './style.css'
 import { UserOutlined, NotificationOutlined, SearchOutlined } from '@ant-design/icons'
+import './style.css'
 
 const Navbar = () => {
   const onSearch = (e) => {
@@ -29,13 +29,13 @@ const Navbar = () => {
             <div className="flex items-center flex-shrink-0"></div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex items-center space-x-4">
-                <a href="/" className="px-3 py-2 text-sm font-medium text-white rounded-md">
+                <a href="/" className="px-3 py-2 text-sm font-medium text-white rounded-md disable">
                   Home
                 </a>
-                <a href="/" className="px-3 py-2 text-sm font-medium text-white rounded-md">
+                <a href="/" className="px-3 py-2 text-sm font-medium text-white rounded-md disable">
                   Genre
                 </a>
-                <a href="/" className="px-3 py-2 text-sm font-medium text-white rounded-md">
+                <a href="/" className="px-3 py-2 text-sm font-medium text-white rounded-md disable">
                   Series
                 </a>
                 <div className="relative">

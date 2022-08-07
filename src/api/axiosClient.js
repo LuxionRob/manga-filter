@@ -14,7 +14,7 @@ export const getMangaFullById = async (path, options = {}) => {
     })
     return res
   } catch (err) {
-    return Promise.reject(new Error('getMangaById failed'))
+    console.warn('Request too quick, please wait')
   }
 }
 
@@ -27,11 +27,11 @@ export const getManga = async () => {
     })
     return res
   } catch (error) {
-    return Promise.reject(new Error('Get invalid'))
+    console.warn('Request too quick, please wait')
   }
 }
 
-export const searchManga = async (q, status, genres, genres_exclude, order_by, sort) => {
+export const searchManga = async (q, status, genres, genres_exclude, order_by, sort, page) => {
   try {
     const res = await instance.get('manga', {
       params: {
@@ -43,8 +43,10 @@ export const searchManga = async (q, status, genres, genres_exclude, order_by, s
         order_by,
         sort,
         sfw: true,
+        page,
       },
     })
+
     return res
   } catch (error) {
     return Promise.reject(new Error('Search input invalid'))
@@ -56,7 +58,7 @@ export const getMangaGenres = async () => {
     const res = await instance.get('genres/manga')
     return res
   } catch {
-    return Promise.reject(new Error('Failed on getMangaGenres'))
+    console.warn('Request too quick, please wait')
   }
 }
 

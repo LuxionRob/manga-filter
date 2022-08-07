@@ -1,15 +1,16 @@
 import DefaultLayout from '../../assets/layouts/defaultLayout'
 import React, { useEffect, useState } from 'react'
 import { searchManga, getMangaGenres, getManga } from '../../api/axiosClient'
-import { Select, Tag, Radio, Space } from 'antd'
+import { Select, Tag, Radio, Space, Pagination } from 'antd'
 import Card from '../../components/card'
+import './style.css'
 
 const { Option } = Select
 const { Group, Button } = Radio
 const statusList = ['publishing', 'complete', 'hiatus', 'discontinued', 'upcoming']
 
 const FilterPage = () => {
-  const [mangaList, setMangaList] = useState([])
+  const [mangaList, setMangaList] = useState({})
   const [genres, setGenres] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [filterGenre, setFilterGenre] = useState([])
@@ -17,6 +18,7 @@ const FilterPage = () => {
   const [status, setStatus] = useState('')
   const [orderBy, setOrderBy] = useState('')
   const [sort, setSort] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
 
   const fetchGenres = async () => {
     try {
@@ -27,7 +29,7 @@ const FilterPage = () => {
       return res
     } catch {
       setIsLoading(false)
-      return Promise.reject(new Error('Failed to get genres'))
+      console.warn('Request too quick, please wait')
     }
   }
 
@@ -35,12 +37,12 @@ const FilterPage = () => {
     try {
       setIsLoading(true)
       const res = await getManga()
-      setMangaList(res.data.data)
+      setMangaList({ [currentPage]: res.data.data })
       setIsLoading(false)
       return res
     } catch (error) {
       setIsLoading(false)
-      return Promise.reject(new Error('Fail'))
+      console.warn('Request too quick, please wait')
     }
   }
 
@@ -84,7 +86,7 @@ const FilterPage = () => {
     setSort(e.target.value)
   }
 
-  const fetchMangaList = async (q) => {
+  const fetchMangaList = async () => {
     try {
       setIsLoading(true)
       const includeGenreParam = filterGenre.join(',')
@@ -99,13 +101,17 @@ const FilterPage = () => {
         excludeGenreParam,
         orderBy,
         sort,
+        currentPage,
       )
-      setMangaList(res.data.data)
+
+      if (!Object.keys(mangaList).includes(currentPage.toString())) {
+        setMangaList({ ...mangaList, [currentPage]: res.data.data })
+      }
       setIsLoading(false)
       return Promise.resolve()
     } catch {
       setIsLoading(false)
-      return Promise.reject(new Error('Failed to search manga'))
+      console.warn('Request too quick, please wait')
     }
   }
 
@@ -113,8 +119,15 @@ const FilterPage = () => {
     fetchMangaList()
   }
 
+  const onPaginationChange = (page) => {
+    setCurrentPage(page)
+  }
+
   useEffect(() => {
-    fetchManga().then()
+    fetchMangaList()
+  }, [currentPage])
+
+  useEffect(() => {
     fetchGenres().then()
   }, [])
 
@@ -191,14 +204,36 @@ const FilterPage = () => {
               </Group>
             </Space>
           </div>
-          <button className="mb-32" onClick={onSearch}>
-            Search
-          </button>
+          <div className="relative flex justify-center w-full">
+            <button
+              type="button"
+              className="px-4 mb-32 text-lg cursor-pointer search_button"
+              onClick={onSearch}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-center pb-16">
+          <Pagination
+            current={currentPage}
+            total={50}
+            defaultPageSize={24}
+            onChange={onPaginationChange}
+          />
         </div>
         <div className="flex flex-wrap basis-2/3 justify-evenly">
-          {mangaList.map((manga) => (
+          {mangaList[currentPage]?.map((manga) => (
             <Card key={manga.mal_id} item={manga} className="w-1/7" />
           ))}
+        </div>
+        <div className="flex justify-center pb-16">
+          <Pagination
+            current={currentPage}
+            total={50}
+            defaultPageSize={24}
+            onChange={onPaginationChange}
+          />
         </div>
       </div>
     </DefaultLayout>

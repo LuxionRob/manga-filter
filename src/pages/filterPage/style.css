@@ -1,0 +1,12 @@
+.search_button::after {
+  content: '';
+  background-color: #fff;
+  height: 2px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 30%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}

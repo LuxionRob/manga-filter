@@ -1,7 +1,7 @@
 import DefaultLayout from '../../assets/layouts/defaultLayout'
 import React, { useEffect, useState } from 'react'
 import { searchManga, getMangaGenres, getManga } from '../../api/axiosClient'
-import { Select, Tag, Radio, Space, Pagination } from 'antd'
+import { Select, Tag, Radio, Space, Pagination, Spin } from 'antd'
 import Card from '../../components/card'
 import './style.css'
 
@@ -19,6 +19,7 @@ const FilterPage = () => {
   const [orderBy, setOrderBy] = useState('')
   const [sort, setSort] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [total, setTotal] = useState(0)
 
   const fetchGenres = async () => {
     try {
@@ -38,11 +39,12 @@ const FilterPage = () => {
       setIsLoading(true)
       const res = await getManga()
       setMangaList({ [currentPage]: res.data.data })
+      setTotal(res.data.pagination.items.total)
       setIsLoading(false)
       return res
     } catch (error) {
       setIsLoading(false)
-      console.warn('First get failed')
+      console.warn('Manga list get failed')
     }
   }
 
@@ -212,24 +214,36 @@ const FilterPage = () => {
             </button>
           </div>
         </div>
-        <div className="flex justify-center pb-16">
+        <div className="flex justify-center mb-12">
           <Pagination
             current={currentPage}
-            total={50}
-            defaultPageSize={24}
+            total={total}
+            pageSize={24}
             onChange={onPaginationChange}
           />
         </div>
         <div className="flex flex-wrap basis-2/3 justify-evenly">
-          {mangaList[currentPage]?.map((manga) => (
-            <Card key={manga.mal_id} item={manga} className="w-1/7" />
-          ))}
+          {isLoading ? (
+            <div
+              className="relative w-[80%] h-screen mb-12"
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.025)',
+              }}
+            >
+              <Spin className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
+            </div>
+          ) : (
+            mangaList[currentPage]?.map((manga) => (
+              <Card key={manga.mal_id} item={manga} className="w-1/7" />
+            ))
+          )}
         </div>
-        <div className="flex justify-center pb-16">
+        <div className="flex justify-center mb-16">
           <Pagination
             current={currentPage}
-            total={50}
-            defaultPageSize={24}
+            total={total}
+            pageSize={24}
+            pageSizeOptions={['']}
             onChange={onPaginationChange}
           />
         </div>

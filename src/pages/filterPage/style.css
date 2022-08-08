@@ -10,3 +10,18 @@
   transform: translateX(-50%);
   border-radius: 2px;
 }
+
+li.ant-pagination-options {
+  display: none;
+}
+.ant-pagination-jump-next {
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.ant-pagination-jump-next:hover {
+  background-color: #fff;
+  border-color: #1890ff;
+}

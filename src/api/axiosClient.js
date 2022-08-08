@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+const PAGES_LIMIT = 24
+
 const instance = axios.create({
   baseURL: 'https://api.jikan.moe/v4',
-  timeout: 1000,
+  timeout: 10000,
 })
 
 export const getMangaFullById = async (path, options = {}) => {
@@ -13,8 +15,12 @@ export const getMangaFullById = async (path, options = {}) => {
       },
     })
     return res
-  } catch (err) {
-    console.warn('Request too quick, please wait')
+  } catch (error) {
+    if (error?.response) {
+      if (error.response.status === 429) {
+        console.warn('Too many request')
+      }
+    }
   }
 }
 
@@ -22,12 +28,16 @@ export const getManga = async () => {
   try {
     const res = await instance.get('manga', {
       params: {
-        limit: 24,
+        limit: PAGES_LIMIT,
       },
     })
     return res
   } catch (error) {
-    console.warn('Request too quick, please wait')
+    if (error?.response) {
+      if (error.response.status === 429) {
+        console.warn('Too many request')
+      }
+    }
   }
 }
 
@@ -35,7 +45,7 @@ export const searchManga = async (q, status, genres, genres_exclude, order_by, s
   try {
     const res = await instance.get('manga', {
       params: {
-        limit: 24,
+        limit: PAGES_LIMIT,
         q,
         status,
         genres,
@@ -49,7 +59,11 @@ export const searchManga = async (q, status, genres, genres_exclude, order_by, s
 
     return res
   } catch (error) {
-    return Promise.reject(new Error('Search input invalid'))
+    if (error?.response) {
+      if (error.response.status === 429) {
+        console.warn('Too many request')
+      }
+    }
   }
 }
 
@@ -57,8 +71,12 @@ export const getMangaGenres = async () => {
   try {
     const res = await instance.get('genres/manga')
     return res
-  } catch {
-    console.warn('Request too quick, please wait')
+  } catch (error) {
+    if (error?.response) {
+      if (error.response.status === 429) {
+        console.warn('Too many request')
+      }
+    }
   }
 }
 

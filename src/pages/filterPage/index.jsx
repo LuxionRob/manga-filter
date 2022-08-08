@@ -27,9 +27,9 @@ const FilterPage = () => {
       setGenres(res.data.data)
       setIsLoading(false)
       return res
-    } catch {
+    } catch (error) {
       setIsLoading(false)
-      console.warn('Request too quick, please wait')
+      console.warn('Get genres failed')
     }
   }
 
@@ -42,7 +42,7 @@ const FilterPage = () => {
       return res
     } catch (error) {
       setIsLoading(false)
-      console.warn('Request too quick, please wait')
+      console.warn('First get failed')
     }
   }
 
@@ -109,9 +109,9 @@ const FilterPage = () => {
       }
       setIsLoading(false)
       return Promise.resolve()
-    } catch {
+    } catch (error) {
       setIsLoading(false)
-      console.warn('Request too quick, please wait')
+      if (!(error?.response.status === 429)) console.warn('Get genres failed')
     }
   }
 
@@ -121,14 +121,12 @@ const FilterPage = () => {
 
   const onPaginationChange = (page) => {
     setCurrentPage(page)
+    fetchMangaList()
   }
 
   useEffect(() => {
-    fetchMangaList()
-  }, [currentPage])
-
-  useEffect(() => {
-    fetchGenres().then()
+    fetchGenres()
+    fetchManga()
   }, [])
 
   return (

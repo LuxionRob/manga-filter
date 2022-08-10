@@ -1,6 +1,6 @@
 import DefaultLayout from '../../assets/layouts/defaultLayout'
 import React, { useEffect, useState } from 'react'
-import { searchManga, getMangaGenres, getManga } from '../../api/axiosClient'
+import { searchManga, getMangaGenres } from '../../api/axiosClient'
 import { Select, Tag, Radio, Space, Pagination, Spin } from 'antd'
 import Card from '../../components/card'
 import './style.css'
@@ -31,20 +31,6 @@ const FilterPage = () => {
     } catch (error) {
       setIsLoading(false)
       console.warn('Get genres failed')
-    }
-  }
-
-  const fetchManga = async () => {
-    try {
-      setIsLoading(true)
-      const res = await getManga()
-      setMangaList({ [currentPage]: res.data.data })
-      setTotal(res.data.pagination.items.total)
-      setIsLoading(false)
-      return res
-    } catch (error) {
-      setIsLoading(false)
-      console.warn('Manga list get failed')
     }
   }
 
@@ -106,6 +92,8 @@ const FilterPage = () => {
         currentPage,
       )
 
+      setMangaList({ [currentPage]: res.data.data })
+      setTotal(res.data.pagination.items.total)
       if (!Object.keys(mangaList).includes(currentPage.toString())) {
         setMangaList({ ...mangaList, [currentPage]: res.data.data })
       }
@@ -113,7 +101,7 @@ const FilterPage = () => {
       return Promise.resolve()
     } catch (error) {
       setIsLoading(false)
-      if (!(error?.response.status === 429)) console.warn('Get genres failed')
+      if (!(error?.response?.status === 429)) console.warn('Get genres failed')
     }
   }
 
@@ -123,14 +111,24 @@ const FilterPage = () => {
 
   const onPaginationChange = (page) => {
     setCurrentPage(page)
-    fetchMangaList()
   }
+  useEffect(() => {
+    if (currentPage !== 1) fetchMangaList()
+  }, [currentPage])
 
   useEffect(() => {
     fetchGenres()
-    fetchManga()
+    fetchMangaList()
+    handleEvent()
   }, [])
-
+  const handleEvent = () => {
+    // On input enter
+    document.getElementById("search_input").addEventListener("keypress", function(e) {
+      if(e.key === 'Enter') {
+        onSearch()
+      }
+    })
+  }
   return (
     <DefaultLayout>
       <div className="flex flex-col pt-16 mx-64 bg-gray-700 nowrap">
@@ -243,7 +241,6 @@ const FilterPage = () => {
             current={currentPage}
             total={total}
             pageSize={24}
-            pageSizeOptions={['']}
             onChange={onPaginationChange}
           />
         </div>

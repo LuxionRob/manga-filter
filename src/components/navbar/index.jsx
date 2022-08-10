@@ -44,6 +44,7 @@ const Navbar = () => {
                     style={{ transform: 'translate(-100%, -50%)' }}
                   />
                   <input
+                    id='search_input'
                     placeholder="Search manga"
                     type="text"
                     className="px-3 text-sm font-medium text-black rounded-md decoration-slate-400"

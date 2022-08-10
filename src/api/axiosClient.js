@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const PAGES_LIMIT = 24
-
+const SFW_CONTENT = true
 const instance = axios.create({
   baseURL: 'https://api.jikan.moe/v4',
   timeout: 10000,
@@ -43,20 +43,20 @@ export const getManga = async () => {
 
 export const searchManga = async (q, status, genres, genres_exclude, order_by, sort, page) => {
   try {
+    const queryParams = {
+      limit: PAGES_LIMIT,
+      sfw: SFW_CONTENT,
+      ...(q && { q }),
+      ...(status && { status }),
+      ...(genres && { genres }),
+      ...(genres_exclude && { genres_exclude }),
+      ...(sort && { sort }),
+      ...(page && { page }),
+      ...(order_by && { order_by }),
+    }
     const res = await instance.get('manga', {
-      params: {
-        limit: PAGES_LIMIT,
-        q,
-        status,
-        genres,
-        genres_exclude,
-        order_by,
-        sort,
-        sfw: true,
-        page,
-      },
+      params: queryParams
     })
-
     return res
   } catch (error) {
     if (error?.response) {

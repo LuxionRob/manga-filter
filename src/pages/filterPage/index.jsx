@@ -1,12 +1,14 @@
 import DefaultLayout from '../../assets/layouts/defaultLayout'
 import React, { useEffect, useState } from 'react'
-import { searchManga, getMangaGenres } from '../../api/axiosClient'
-import { Select, Tag, Radio, Space, Pagination, Spin } from 'antd'
+import { getMangaGenres, searchManga } from '../../api/axiosClient'
+import { Pagination, Radio, Select, Space, Spin, Tag } from 'antd'
+import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
 import Card from '../../components/card'
 import './style.css'
 
 const { Option } = Select
 const { Group, Button } = Radio
+const sortStatus = ['', 'asc', 'desc']
 const statusList = ['publishing', 'complete', 'hiatus', 'discontinued', 'upcoming']
 
 const FilterPage = () => {
@@ -17,7 +19,7 @@ const FilterPage = () => {
   const [excludeGenre, setExcludeGenre] = useState([])
   const [status, setStatus] = useState('')
   const [orderBy, setOrderBy] = useState('')
-  const [sort, setSort] = useState('')
+  const [sort, setSort] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [total, setTotal] = useState(0)
 
@@ -71,7 +73,11 @@ const FilterPage = () => {
   }
 
   const onSortChange = (e) => {
-    setSort(e.target.value)
+    if (e.target.value !== orderBy) {
+      setSort(0)
+    } else {
+      setSort((sort + 1) % 3)
+    }
   }
 
   const fetchMangaList = async () => {
@@ -88,7 +94,7 @@ const FilterPage = () => {
         includeGenreParam,
         excludeGenreParam,
         orderBy,
-        sort,
+        sortStatus[sort],
         currentPage,
       )
 
@@ -112,6 +118,7 @@ const FilterPage = () => {
   const onPaginationChange = (page) => {
     setCurrentPage(page)
   }
+
   useEffect(() => {
     if (currentPage !== 1) fetchMangaList()
   }, [currentPage])
@@ -121,10 +128,11 @@ const FilterPage = () => {
     fetchMangaList()
     handleEvent()
   }, [])
+
   const handleEvent = () => {
     // On input enter
-    document.getElementById("search_input").addEventListener("keypress", function(e) {
-      if(e.key === 'Enter') {
+    document.getElementById('search_input').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
         onSearch()
       }
     })
@@ -190,15 +198,22 @@ const FilterPage = () => {
             <span className="absolute top-0 bottom-0 text-2xl text-white left-16">Order by:</span>
             <Space direction="horizontal">
               <Group optionType="button" buttonStyle="solid" onChange={onPropertyChange}>
-                <Button value="rank">Rank</Button>
-                <Button value="start_date">Update</Button>
-                <Button value="chapters">Chapters</Button>
-                <Button value="favorites">Favorites</Button>
-              </Group>
-
-              <Group optionType="button" buttonStyle="solid" onChange={onSortChange}>
-                <Button value="asc">Ascend</Button>
-                <Button value="desc">Descend</Button>
+                <Button className='max-w-24 text-center' onClick={onSortChange} value="rank">
+                  <span className='mr-1'>Rank</span>
+                  {orderBy === 'rank' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}
+                </Button>
+                <Button className='max-w-24 text-center' onClick={onSortChange} value="start_date">
+                  <span className='mr-1'>Update</span>
+                  {orderBy === 'start_date' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}
+                </Button>
+                <Button className='max-w-24 text-center' onClick={onSortChange} value="chapters">
+                  <span className='mr-1'>Chapters</span>
+                  {orderBy === 'chapters' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}
+                </Button>
+                <Button className='max-w-24 text-center' onClick={onSortChange} value="favorites">
+                  <span className='mr-1'>Favorites</span>
+                  {orderBy === 'favorites' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}
+                </Button>
               </Group>
             </Space>
           </div>
@@ -228,11 +243,11 @@ const FilterPage = () => {
                 backgroundColor: 'rgba(0, 0, 0, 0.025)',
               }}
             >
-              <Spin className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
+              <Spin className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"/>
             </div>
           ) : (
             mangaList[currentPage]?.map((manga) => (
-              <Card key={manga.mal_id} item={manga} className="w-1/7" />
+              <Card key={manga.mal_id} item={manga} className="w-1/7"/>
             ))
           )}
         </div>

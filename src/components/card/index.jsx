@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Tooltip, Typography } from 'antd'
 
@@ -7,9 +7,29 @@ const { Paragraph } = Typography
 const Card = ({ item, className }) => {
   const [showTooltip, setShowTooltip] = useState(false)
 
+  const handleEvent = () => {
+    const tooltips = document.querySelectorAll('.tooltip')
+
+    window.onmousemove = (e) => {
+      const x = e.clientX
+      const y = e.clientY
+
+      for (let i = 0; i < tooltips.length; i++) {
+
+        tooltips[i].style.top = y + 20 + 'px'
+        tooltips[i].style.left = x + 20 + 'px'
+        console.log(tooltips[i].style.top, tooltips[i].style.left)
+      }
+    }
+  }
+
+  useEffect(() => {
+    handleEvent()
+  }, [])
+
   return (
-    <a href="/" className={`block relative w-[210px] mb-12 ${className}`}>
-      <div onMouseOver={() => setShowTooltip(true)} onMouseOut={() => setShowTooltip(false)}>
+    <a href="/" className={`block  w-[210px] mb-12 ${className}`}>
+      <div className='relative' onMouseOver={() => setShowTooltip(true)} onMouseOut={() => setShowTooltip(false)}>
         <div className="absolute px-2 py-1 text-white bg-blue-400 top-1 left-1 rounded-xl">{item.status}</div>
         <img
           className="object-center"
@@ -33,7 +53,7 @@ const Card = ({ item, className }) => {
 
       {/*Tooltip*/}
       <div onMouseOver={() => setShowTooltip(true)} onMouseOut={() => setShowTooltip(false)}
-           className={`absolute top-1/2 left-1/2 w-[23rem] p-2 bg-slate-100 z-10 ${showTooltip ? '' : ' hidden'}`}>
+           className={`tooltip fixed w-[23rem] p-2 bg-slate-100 z-10 ${showTooltip ? '' : ' hidden'}`}>
         <span className="text-black font-bold">{item.title}</span>
         <div className="flex">
           <img className="object-center mr-2" src={item.images.jpg.large_image_url} alt="" height="200" width="140"/>

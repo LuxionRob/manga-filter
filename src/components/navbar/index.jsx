@@ -2,7 +2,7 @@ import { UserOutlined, NotificationOutlined, SearchOutlined } from '@ant-design/
 import './style.css'
 
 const Navbar = () => {
-  const onSearch = (e) => {
+  const onChange = (e) => {
     const searchParams = new URLSearchParams(window.location.search)
     searchParams.set('q', e.target.value)
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                     placeholder="Search manga"
                     type="text"
                     className="px-3 text-sm font-medium text-black rounded-md decoration-slate-400"
-                    onBlur={onSearch}
+                    onChange={onChange}
                   />
                 </div>
               </div>

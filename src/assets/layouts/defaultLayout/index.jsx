@@ -1,7 +1,6 @@
 import { Layout } from 'antd'
 import PropTypes from 'prop-types'
 import Navbar from '../../../components/navbar'
-// import Card from '../../../components/card'
 import './style.css'
 
 const { Header, Content } = Layout

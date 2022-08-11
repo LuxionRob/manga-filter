@@ -14,14 +14,16 @@
 li.ant-pagination-options {
   display: none;
 }
-.ant-pagination-jump-next {
+.ant-pagination-jump-next,
+.ant-pagination-jump-prev {
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   transition: all 0.3s;
 }
 
-.ant-pagination-jump-next:hover {
+.ant-pagination-jump-next:hover,
+.ant-pagination-jump-prev:hover{
   background-color: #fff;
   border-color: #1890ff;
 }

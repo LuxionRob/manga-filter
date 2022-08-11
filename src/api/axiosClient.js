@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const PAGES_LIMIT = 24
 const SFW_CONTENT = true
+
 const instance = axios.create({
   baseURL: 'https://api.jikan.moe/v4',
   timeout: 10000,

@@ -139,7 +139,7 @@ const FilterPage = () => {
   }
   return (
     <DefaultLayout>
-      <div className="flex flex-col pt-16 mx-64 bg-gray-700 nowrap">
+      <div className="flex flex-col pt-16 mx-64 nowrap">
         <div className="flex flex-col items-center advanced-filter">
           <h1 className="mb-8 text-3xl text-white">Genre</h1>
           <div className="flex justify-around w-full mb-8">

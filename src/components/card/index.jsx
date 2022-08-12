@@ -36,13 +36,13 @@ const Card = ({ item, className, gridResponsive }) => {
       xxl={gridResponsive.xxl}
       className='flex justify-center items-center'
     >
-      <a href='/' className={`block min-w-[110px] max-w-[210px] ${className}`}>
+      <a href='/' className={`block w-full h-full flex justify-center ${className}`}>
         <div className='relative' onMouseOver={() => setShowTooltip(true)} onMouseOut={() => setShowTooltip(false)}>
           <div className='absolute px-2 py-1 text-white bg-blue-400 top-1 left-1 rounded-xl'>
             {item.status}
           </div>
           <img
-            className='object-center max-w-6 w-full'
+            className='object-center'
             src={item.images.jpg.large_image_url}
             width={210}
             height={300}

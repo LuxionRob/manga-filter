@@ -263,7 +263,7 @@ const FilterPage = () => {
               <Spin className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"/>
             </div>
           ) : (
-            <Row gutter={[16, 32]} justify="space-evenly">
+            <Row gutter={[16, 32]} justify="start" className='w-full'>
               {
                 mangaList[currentPage]?.map((manga) => (
                   <Card key={manga.mal_id} item={manga} gridResponsive={gridResponsive}/>

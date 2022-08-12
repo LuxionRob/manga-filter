@@ -214,22 +214,19 @@ const FilterPage = () => {
               <Group value={orderBy} optionType="button" buttonStyle="solid" onChange={onPropertyChange} className='select-none'>
                 <Button className="max-w-24 text-center" onClick={onSortChange} value="rank">
                   <span className="mr-1">Rank</span>
-                  {orderBy === 'rank' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}
+                  {orderBy === 'rank' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
                 </Button>
                 <Button className="max-w-24 text-center" onClick={onSortChange} value="start_date">
                   <span className="mr-1">Release Date</span>
-                  {orderBy === 'start_date' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ?
-                    <CaretUpOutlined/> : ''))}
+                  {orderBy === 'start_date' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
                 </Button>
                 <Button className="max-w-24 text-center" onClick={onSortChange} value="chapters">
                   <span className="mr-1">Chapters</span>
-                  {orderBy === 'chapters' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ?
-                    <CaretUpOutlined/> : ''))}
+                  {orderBy === 'chapters' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
                 </Button>
                 <Button className="max-w-24 text-center" onClick={onSortChange} value="favorites">
                   <span className="mr-1">Favorites</span>
-                  {orderBy === 'favorites' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ?
-                    <CaretUpOutlined/> : ''))}
+                  {orderBy === 'favorites' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
                 </Button>
               </Group>
             </Space>

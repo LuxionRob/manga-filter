@@ -212,7 +212,7 @@ const FilterPage = () => {
             <span
               className="absolute top-0 bottom-0 text-2xl text-white left-16 hidden xl:inline-block">Order by:</span>
             <Space direction="horizontal">
-              <Group value={orderBy} optionType="button" buttonStyle="solid" onChange={onPropertyChange}>
+              <Group value={orderBy} optionType="button" buttonStyle="solid" onChange={onPropertyChange} className='select-none'>
                 <Button className="max-w-24 text-center" onClick={onSortChange} value="rank">
                   <span className="mr-1">Rank</span>
                   {orderBy === 'rank' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}

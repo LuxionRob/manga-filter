@@ -217,7 +217,7 @@ const FilterPage = () => {
                   {orderBy === 'rank' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ? <CaretUpOutlined/> : ''))}
                 </Button>
                 <Button className="max-w-24 text-center" onClick={onSortChange} value="start_date">
-                  <span className="mr-1">Update</span>
+                  <span className="mr-1">Release Date</span>
                   {orderBy === 'start_date' && (sort === 1 ? <CaretDownOutlined/> : (sort === 2 ?
                     <CaretUpOutlined/> : ''))}
                 </Button>

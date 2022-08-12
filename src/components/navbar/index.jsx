@@ -77,7 +77,7 @@ const Navbar = () => {
                 </a>
               </div>
             </div>
-            <div className={`${isSearch ? 'flex' : 'hidden'} sm:block relative w-48 mb-4`}>
+            <div className={`${isSearch ? 'flex' : 'hidden'} sm:block relative w-48 phone:mb-4`}>
               <SearchOutlined
                 className="absolute left-[95%] top-1/2 text-blacks"
                 style={{ transform: 'translate(-100%, -50%)' }}

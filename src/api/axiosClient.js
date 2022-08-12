@@ -58,7 +58,6 @@ export const searchManga = async (q, status, genres, genres_exclude, order_by, s
     const res = await instance.get('manga', {
       params: queryParams
     })
-    console.log(res)
     return res
   } catch (error) {
     if (error?.response) {

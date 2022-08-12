@@ -9,7 +9,7 @@ const DefaultLayout = ({ children }) => {
 
   return (
     <Layout>
-      <Header>
+      <Header className='inline-block h-auto'>
         <Navbar/>
       </Header>
       <Layout className="overflow-hidden">

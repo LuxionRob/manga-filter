@@ -5,21 +5,6 @@ import './style.css'
 const Navbar = () => {
   const [isSearch, setIsSearch] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
-  const onChange = (e) => {
-    const searchParams = new URLSearchParams(window.location.search)
-    searchParams.set('q', e.target.value)
-
-    if (window.history.replaceState) {
-      const url = `${window.location.pathname}?${searchParams}`
-      window.history.replaceState(
-        {
-          path: url,
-        },
-        '',
-        url,
-      )
-    }
-  }
 
   const toggleDropdown = (e) => {
     e.stopPropagation()
@@ -87,7 +72,6 @@ const Navbar = () => {
                 placeholder="Search manga"
                 type="text"
                 className="px-3 text-sm font-medium text-black rounded-md decoration-slate-400 h-8 w-48"
-                onChange={onChange}
               />
             </div>
           </div>

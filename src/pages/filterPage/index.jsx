@@ -98,11 +98,10 @@ const FilterPage = () => {
       setIsLoading(true)
       const includeGenreParam = filterGenre.join(',')
       const excludeGenreParam = excludeGenre.join(',')
-      const searchParams = new URLSearchParams(window.location.search)
-      const name = searchParams.get('q')
+      const searchInput = document.getElementById('search_input')
 
       const res = await searchManga(
-        name,
+        searchInput.value,
         status,
         includeGenreParam,
         excludeGenreParam,

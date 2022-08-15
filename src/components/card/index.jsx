@@ -38,18 +38,18 @@ const Card = ({ item, className, gridResponsive }) => {
       xxl={gridResponsive.xxl}
       className="flex justify-center items-center"
     >
-      <a href="/" className={`block w-full h-full flex justify-center ${className}`}>
+      <a target="_blank" href={item.url} className={`block w-full h-full flex justify-center ${className}`}>
         <div className="relative" onMouseOver={() => setShowTooltip(true)} onMouseOut={() => setShowTooltip(false)}>
           <div className="absolute px-2 py-1 text-white bg-blue-400 top-1 left-1 rounded-xl">
             {item.status}
           </div>
-          <div className='h-5/6'>
+          <div className="h-5/6">
 
-          <img
-            className="object-cover w-full h-full"
-            src={item.images.jpg.large_image_url}
-            alt="example"
-          />
+            <img
+              className="object-cover w-full h-full"
+              src={item.images.jpg.large_image_url}
+              alt="example"
+            />
           </div>
           <div className="flex flex-col items-center pb-0 mt-1 justify-content-between">
             <Paragraph

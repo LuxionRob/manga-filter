@@ -190,7 +190,6 @@ const FilterPage = () => {
               ))}
             </Select>
           </div>
-          <div className="block bg-white h-[1px] w-64 mb-8"></div>
           <div className="mb-8 w-full flex justify-center">
             <Select
               placeholder="Status"
@@ -207,6 +206,7 @@ const FilterPage = () => {
               ))}
             </Select>
           </div>
+          <div className="block bg-white h-[1px] w-8 mb-8"></div>
           <div className="relative flex justify-center w-full mb-8">
             <span
               className="absolute top-0 bottom-0 text-2xl text-white left-16 hidden xl:inline-block">Order by:</span>
@@ -272,7 +272,7 @@ const FilterPage = () => {
             </Row>
           )}
         </div>
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center my-4">
           <Pagination
             current={currentPage}
             total={total}

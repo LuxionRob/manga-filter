@@ -12,7 +12,6 @@ const DefaultLayout = ({ children }) => {
 
   const scrollToHead = () => {
     const header = document.getElementById('header')
-    console.log(header)
     header.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
   }
 

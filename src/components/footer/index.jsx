@@ -33,7 +33,7 @@ const FooterCpn = () => {
             <SlackOutlined/>
           </a>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 phone:flex phone:flex-col phone:self-start phone:ml-2">
           <span className="text-white mr-4">
             Phone: <a className="text-white opacity-90 hover:text-sky-500 " href="tel:+84966340602">+84966340602</a>
           </span>

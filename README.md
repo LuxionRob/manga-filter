@@ -46,4 +46,4 @@ npm start
 npm run build 
 ```
 
-###### Web: http://manga-filter.herokuapp.com/
+## Web Demo: http://manga-filter.herokuapp.com/

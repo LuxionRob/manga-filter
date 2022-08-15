@@ -3,10 +3,10 @@ import { UpOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 
 import Navbar from '../../../components/navbar'
-
+import FooterCpn from '../../../components/footer'
 import './style.css'
 
-const { Header, Content } = Layout
+const { Header, Content, Footer } = Layout
 
 const DefaultLayout = ({ children }) => {
 
@@ -31,6 +31,9 @@ const DefaultLayout = ({ children }) => {
             <UpOutlined/></div>
         </Content>
       </Layout>
+      <Footer className='p-0 bg-[#242526]'>
+        <FooterCpn />
+      </Footer>
     </Layout>
   )
 }

@@ -72,6 +72,7 @@ const Navbar = () => {
                 placeholder="Search manga"
                 type="text"
                 className="px-3 text-sm font-medium text-black rounded-md decoration-slate-400 h-8 w-48"
+                onClick={(e) => e.stopPropagation()}
               />
             </div>
           </div>

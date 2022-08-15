@@ -26,7 +26,7 @@ const Navbar = () => {
 
   })
   return (
-    <nav className="relative">
+    <nav className="relative grow">
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-auto">
           <div
@@ -34,13 +34,13 @@ const Navbar = () => {
             <div className={`phone:flex-col phone:justify-center flex sm:ml-6 sm:items-center justify-start h-16`}>
               <div className="phone:flex items-center text-xl text-white justify-self-center h-16 hidden">
                 <div
-                  className="leading-16 mr-4 py-2 px-2 active:bg-slate-300 active:text-slate-900"
+                  className="leading-[4rem] px-4 active:bg-slate-300 active:text-slate-900"
                   onClick={toggleDropdown}
                 >
                   <MenuOutlined/>
                 </div>
                 <div
-                  className="leading-16 py-2 px-2 active:bg-slate-300 active:text-slate-900"
+                  className="leading-[4rem] px-4 active:bg-slate-300 active:text-slate-900"
                   onClick={toggleSearch}
                 >
                   <SearchOutlined/>
@@ -78,7 +78,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="absolute right-0 top-0 h-16 flex items-center justify-center">
+      <div className="absolute right-2 top-0 h-16 flex items-center justify-center">
         <div className="flex items-center justify-center text-gray-400 hidden lg:flex hover:text-white">
           <NotificationOutlined className="text-xl"/>
         </div>

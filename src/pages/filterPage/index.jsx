@@ -210,23 +210,27 @@ const FilterPage = () => {
           <div className="relative flex justify-center w-full mb-8">
             <span
               className="absolute top-0 bottom-0 text-2xl text-white left-16 hidden xl:inline-block">Order by:</span>
-            <Space direction="horizontal">
-              <Group value={orderBy} optionType="button" buttonStyle="solid" onChange={onPropertyChange} className='select-none'>
-                <Button className="max-w-24 text-center" onClick={onSortChange} value="rank">
+            <Space direction="horizontal" align="center">
+              <Group value={orderBy} optionType="button" buttonStyle="solid" onChange={onPropertyChange}
+                     className="select-none flex justify-center flex-wrap">
+                <Button className="mt-2 max-w-24 text-center" onClick={onSortChange} value="chapters">
+                  <span className="mr-1">Chapters</span>
+                  {orderBy === 'chapters' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ?
+                    <CaretDownOutlined/> : ''))}
+                </Button>
+                <Button className="mt-2 max-w-24 text-center" onClick={onSortChange} value="rank">
                   <span className="mr-1">Rank</span>
                   {orderBy === 'rank' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
                 </Button>
-                <Button className="max-w-24 text-center" onClick={onSortChange} value="start_date">
-                  <span className="mr-1">Release Date</span>
-                  {orderBy === 'start_date' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
-                </Button>
-                <Button className="max-w-24 text-center" onClick={onSortChange} value="chapters">
-                  <span className="mr-1">Chapters</span>
-                  {orderBy === 'chapters' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
-                </Button>
-                <Button className="max-w-24 text-center" onClick={onSortChange} value="favorites">
+                <Button className="mt-2 max-w-24 text-center" onClick={onSortChange} value="favorites">
                   <span className="mr-1">Favorites</span>
-                  {orderBy === 'favorites' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ? <CaretDownOutlined/> : ''))}
+                  {orderBy === 'favorites' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ?
+                    <CaretDownOutlined/> : ''))}
+                </Button>
+                <Button className="mt-2 max-w-24 text-center" onClick={onSortChange} value="start_date">
+                  <span className="mr-1">Release Date</span>
+                  {orderBy === 'start_date' && (sort === 1 ? <CaretUpOutlined/> : (sort === 2 ?
+                    <CaretDownOutlined/> : ''))}
                 </Button>
               </Group>
             </Space>
@@ -260,7 +264,7 @@ const FilterPage = () => {
               <Spin className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"/>
             </div>
           ) : (
-            <Row gutter={[16, 32]} justify="start" className='w-full'>
+            <Row gutter={[16, 32]} justify="start" className="w-full">
               {
                 mangaList[currentPage]?.map((manga) => (
                   <Card key={manga.mal_id} item={manga} gridResponsive={gridResponsive}/>
@@ -268,7 +272,7 @@ const FilterPage = () => {
             </Row>
           )}
         </div>
-        <div className="flex justify-center mb-16">
+        <div className="flex justify-center mb-4">
           <Pagination
             current={currentPage}
             total={total}

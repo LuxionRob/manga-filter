@@ -26,8 +26,8 @@ const Navbar = () => {
 
   })
   return (
-    <nav className="relative grow">
-      <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <nav className="relative">
+      <div className="px-2 max-w-7xl sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-auto">
           <div
             className={`${isSearch ? 'flex-col items-start' : 'items-center'} flex justify-start flex-1 sm:items-stretch`}>
@@ -49,15 +49,15 @@ const Navbar = () => {
               <div
                 className={`${showDropdown ? 'flex flex-col' : 'hidden'} items-start mr-4 sm:flex justify-start sm:items-center sm:space-x-4 phone:fixed phone:top-16 phone:left-0 phone:bg-[#001529] phone:screen`}>
                 <a href="/"
-                   className="phone:w-screen phone:text-lg px-3 py-2 text-sm font-medium text-white rounded-md disable">
+                   className="phone:w-screen phone:text-lg px-3 py-2 text-sm font-medium text-xl text-white rounded-md disable">
                   Home
                 </a>
                 <a href="/"
-                   className="phone:w-screen phone:text-lg px-3 py-2 text-sm font-medium text-white rounded-md disable">
+                   className="phone:w-screen phone:text-lg px-3 py-2 text-sm font-medium text-xl text-white rounded-md disable">
                   Genre
                 </a>
                 <a href="/"
-                   className="phone:w-screen phone:text-lg px-3 py-2 text-sm font-medium text-white rounded-md disable">
+                   className="phone:w-screen phone:text-lg px-3 py-2 text-sm font-medium text-xl text-white rounded-md disable">
                   Series
                 </a>
               </div>
@@ -78,7 +78,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="absolute right-2 top-0 h-16 flex items-center justify-center">
+      <div className="absolute right-16 phone:right-2 top-0 h-16 flex items-center justify-center">
         <div className="flex items-center justify-center text-gray-400 hidden lg:flex hover:text-white">
           <NotificationOutlined className="text-xl"/>
         </div>

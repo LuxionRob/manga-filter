@@ -13,9 +13,11 @@ In Vietnam, there are websites posted without copyright, so I want to create a w
 - API: Jikan
 
 ## Feature
+- Responsive: Able to use on mobile phone
+  ![img.png](src/assets/git/images/responsive.png)
 
 - Search by name: You can find a specific manga by its name.
-  ![img.png](src/assets/git/images/feature_search_name.png)
+  ![img.png](src/assets/git/images/feature_search.png)
 
 
 - Advanced Search: You can search in a more advanced way, ex: include genre(s), exclude genre(s), manga status; rank, favorites, release date, chapter quantity in ascending or descending order.

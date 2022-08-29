@@ -46,4 +46,4 @@ npm start
 npm run build 
 ```
 
-## Web Demo: http://manga-filter.herokuapp.com/
+## Web Demo: https://manga-filter-fz8obo7bb-luxionrob.vercel.app/
